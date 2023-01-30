@@ -41,7 +41,10 @@ public class MembraneController {
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.set("Clear Database", "Membrane Database Cleared");
         return ResponseEntity
-                .ok("Database Cleared");
+                .ok()
+                .headers(responseHeader)
+                .body("Database Cleared");
+
     }
 
 }
