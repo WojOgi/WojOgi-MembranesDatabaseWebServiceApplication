@@ -6,10 +6,11 @@ public interface MembraneDatabaseInterface {
 
     List<Membrane> getAllMembranes();
 
+    Membrane getOneMembrane(int id);
+
     void addMembraneToDatabase(Membrane membrane);
 
     void clearMembraneDatabase();
-
 
 
 }

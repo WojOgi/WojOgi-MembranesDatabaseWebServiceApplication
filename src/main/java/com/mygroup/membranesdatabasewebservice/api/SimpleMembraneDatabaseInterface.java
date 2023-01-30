@@ -18,6 +18,11 @@ public class SimpleMembraneDatabaseInterface implements MembraneDatabaseInterfac
     }
 
     @Override
+    public Membrane getOneMembrane(int id) {
+        return membraneDatabase.get(id);
+    }
+
+    @Override
     public void addMembraneToDatabase(Membrane membrane) {
         membraneDatabase.add(membrane);
     }

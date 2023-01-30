@@ -24,6 +24,16 @@ public class MembraneController {
                 .body(simpleMembraneDatabaseInterface.getAllMembranes());
     }
 
+    @GetMapping(value = "/membranes/{id}")
+    public ResponseEntity<Membrane> getOneMembraneByItsId(@PathVariable int id){
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Get Membrane by Id","Get One Membrane By Its Id");
+        return ResponseEntity
+                .ok()
+                .headers(responseHeaders)
+                .body(simpleMembraneDatabaseInterface.getOneMembrane(id));
+    }
+
     @PostMapping(value = "/membranes")
     public ResponseEntity<String> addMembrane(@RequestBody Membrane membrane) {
         simpleMembraneDatabaseInterface.addMembraneToDatabase(membrane);
