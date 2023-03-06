@@ -1,15 +1,22 @@
 package com.mygroup.membranesdatabasewebservice.api;
 
-public class Membrane {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class Membrane {
+@Id
+@GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String polymerPrecursor;
     private int pyrolysisTemperature;
     private String solvent;
     private double solutionConcentrationWtPerc;
 
-    private PureGasTest pureGasTest;
-    private MixedGasTest mixedGasTest;
+   // private PureGasTest pureGasTest;
+   // private MixedGasTest mixedGasTest;
 
     public Membrane() {
     }
@@ -20,24 +27,8 @@ public class Membrane {
         this.pyrolysisTemperature = pyrolysisTemperature;
         this.solvent = solvent;
         this.solutionConcentrationWtPerc = solutionConcentrationWtPerc;
-        this.pureGasTest = pureGasTest;
-        this.mixedGasTest = mixedGasTest;
-    }
-
-    public PureGasTest getPureGasTest() {
-        return pureGasTest;
-    }
-
-    public void setPureGasTest(PureGasTest pureGasTest) {
-        this.pureGasTest = pureGasTest;
-    }
-
-    public MixedGasTest getMixedGasTest() {
-        return mixedGasTest;
-    }
-
-    public void setMixedGasTest(MixedGasTest mixedGasTest) {
-        this.mixedGasTest = mixedGasTest;
+       // this.pureGasTest = pureGasTest;
+       // this.mixedGasTest = mixedGasTest;
     }
 
 
@@ -89,8 +80,6 @@ public class Membrane {
                 ", pyrolysisTemperature=" + pyrolysisTemperature +
                 ", solvent='" + solvent + '\'' +
                 ", solutionConcentrationWtPerc=" + solutionConcentrationWtPerc +
-                ", pureGasTest=" + pureGasTest.toString() +
-                ", mixedGasTest=" + mixedGasTest.toString() +
-                '}';
+                 '}';
     }
 }
