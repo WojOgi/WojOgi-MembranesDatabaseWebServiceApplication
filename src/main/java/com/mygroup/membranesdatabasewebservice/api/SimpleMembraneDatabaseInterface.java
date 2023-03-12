@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Primary
+
 public class SimpleMembraneDatabaseInterface implements MembraneDatabaseInterface {
 
     private static final List<Membrane> membraneDatabase = new ArrayList<>();

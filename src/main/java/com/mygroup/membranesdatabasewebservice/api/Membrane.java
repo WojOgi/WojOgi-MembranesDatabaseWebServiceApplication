@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class Membrane {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String polymerPrecursor;
     private int pyrolysisTemperature;
     private String solvent;
@@ -21,7 +21,12 @@ public class Membrane {
     public Membrane() {
     }
 
-    public Membrane(int id, String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc, PureGasTest pureGasTest, MixedGasTest mixedGasTest) {
+    public Membrane(String polymerPrecursor, int pyrolysisTemperature) {
+        this.polymerPrecursor = polymerPrecursor;
+        this.pyrolysisTemperature = pyrolysisTemperature;
+    }
+
+    public Membrane(Long id, String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc, PureGasTest pureGasTest, MixedGasTest mixedGasTest) {
         this.id = id;
         this.polymerPrecursor = polymerPrecursor;
         this.pyrolysisTemperature = pyrolysisTemperature;
@@ -31,12 +36,11 @@ public class Membrane {
        // this.mixedGasTest = mixedGasTest;
     }
 
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
