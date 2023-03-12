@@ -6,12 +6,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MembraneController {
 
     @Autowired
     private MembraneDatabaseInterface databaseRepository;
+    //tutaj mamy zautowirewany databaseRepository typu MembraneDatabaseInterface
+    //on nam definiuje metody, a implementuje go SimpleMembraneDatabaseInterface
+    //oraz nasz H2Repository - w tym momencie H2Repository jest oznaczony jako @Primary
+    //SimpleMembraneDatabaseInterface jest zatem ignorowany
 
     @GetMapping(value = "/membranes")
     public ResponseEntity<List<Membrane>> getAllMembranes() {
@@ -21,10 +26,12 @@ public class MembraneController {
                 .ok()
                 .headers(responseHeaders)
                 .body(databaseRepository.getAllMembranes());
+        //tutaj getAllMembranes nie powinien zwracac naszych wewnętrznych membranes
+        //trzeba przemapować
     }
 
     @GetMapping(value = "/membranes/{id}")
-    public ResponseEntity<Membrane> getOneMembraneByItsId(@PathVariable int id) {
+    public ResponseEntity<Optional<Membrane>> getOneMembraneByItsId(@PathVariable Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Get Membrane by Id", "Get One Membrane By Its Id");
         return ResponseEntity
@@ -41,7 +48,7 @@ public class MembraneController {
         return ResponseEntity
                 .ok()
                 .headers(responseHeaders)
-                .body("Added Entry: " + membrane.toString());
+                .body("Added Entry: " + membrane);
     }
 
     private Membrane toMembrane(AddMembraneRequest inputMembraneData) {

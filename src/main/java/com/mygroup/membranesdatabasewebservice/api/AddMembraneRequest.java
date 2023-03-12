@@ -39,4 +39,12 @@ public class AddMembraneRequest {
     public int hashCode() {
         return Objects.hash(polymerPrecursor, pyrolysisTemperature);
     }
+
+    @Override
+    public String toString() {
+        return "AddMembraneRequest{" +
+                "polymerPrecursor='" + polymerPrecursor + '\'' +
+                ", pyrolysisTemperature=" + pyrolysisTemperature +
+                '}';
+    }
 }

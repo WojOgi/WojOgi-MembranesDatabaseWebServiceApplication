@@ -1,10 +1,10 @@
 package com.mygroup.membranesdatabasewebservice.api;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 
@@ -18,9 +18,14 @@ public class SimpleMembraneDatabaseInterface implements MembraneDatabaseInterfac
     }
 
     @Override
-    public Membrane getOneMembrane(int id) {
-        return membraneDatabase.get(id);
+    public Optional<Membrane> getOneMembrane(Long id) {
+        return Optional.empty();
     }
+
+    // @Override
+   // public Optional<Membrane> getOneMembrane(Long id) {
+   //     return membraneDatabase.get(id);
+   //}
 
     @Override
     public void addMembraneToDatabase(Membrane membrane) {
