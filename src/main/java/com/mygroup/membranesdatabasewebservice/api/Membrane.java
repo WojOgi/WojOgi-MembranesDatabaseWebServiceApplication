@@ -1,51 +1,46 @@
 package com.mygroup.membranesdatabasewebservice.api;
 
-public class Membrane {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-    private int id;
+@Entity
+public class Membrane {
+@Id
+@GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String polymerPrecursor;
     private int pyrolysisTemperature;
     private String solvent;
     private double solutionConcentrationWtPerc;
 
-    private PureGasTest pureGasTest;
-    private MixedGasTest mixedGasTest;
+   // private PureGasTest pureGasTest;
+   // private MixedGasTest mixedGasTest;
 
     public Membrane() {
     }
 
-    public Membrane(int id, String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc, PureGasTest pureGasTest, MixedGasTest mixedGasTest) {
+    public Membrane(String polymerPrecursor, int pyrolysisTemperature) {
+        this.polymerPrecursor = polymerPrecursor;
+        this.pyrolysisTemperature = pyrolysisTemperature;
+    }
+
+    public Membrane(Long id, String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc, PureGasTest pureGasTest, MixedGasTest mixedGasTest) {
         this.id = id;
         this.polymerPrecursor = polymerPrecursor;
         this.pyrolysisTemperature = pyrolysisTemperature;
         this.solvent = solvent;
         this.solutionConcentrationWtPerc = solutionConcentrationWtPerc;
-        this.pureGasTest = pureGasTest;
-        this.mixedGasTest = mixedGasTest;
+       // this.pureGasTest = pureGasTest;
+       // this.mixedGasTest = mixedGasTest;
     }
 
-    public PureGasTest getPureGasTest() {
-        return pureGasTest;
-    }
-
-    public void setPureGasTest(PureGasTest pureGasTest) {
-        this.pureGasTest = pureGasTest;
-    }
-
-    public MixedGasTest getMixedGasTest() {
-        return mixedGasTest;
-    }
-
-    public void setMixedGasTest(MixedGasTest mixedGasTest) {
-        this.mixedGasTest = mixedGasTest;
-    }
-
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -89,8 +84,6 @@ public class Membrane {
                 ", pyrolysisTemperature=" + pyrolysisTemperature +
                 ", solvent='" + solvent + '\'' +
                 ", solutionConcentrationWtPerc=" + solutionConcentrationWtPerc +
-                ", pureGasTest=" + pureGasTest.toString() +
-                ", mixedGasTest=" + mixedGasTest.toString() +
-                '}';
+                 '}';
     }
 }
