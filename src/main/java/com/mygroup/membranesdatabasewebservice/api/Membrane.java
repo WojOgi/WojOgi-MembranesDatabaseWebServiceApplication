@@ -26,6 +26,13 @@ public class Membrane {
         this.pyrolysisTemperature = pyrolysisTemperature;
     }
 
+    public Membrane(String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc) {
+        this.polymerPrecursor = polymerPrecursor;
+        this.pyrolysisTemperature = pyrolysisTemperature;
+        this.solvent = solvent;
+        this.solutionConcentrationWtPerc = solutionConcentrationWtPerc;
+    }
+
     public Membrane(Long id, String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc, PureGasTest pureGasTest, MixedGasTest mixedGasTest) {
         this.id = id;
         this.polymerPrecursor = polymerPrecursor;

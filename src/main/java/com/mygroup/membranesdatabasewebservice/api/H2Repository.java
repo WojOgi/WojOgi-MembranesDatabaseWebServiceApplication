@@ -16,7 +16,9 @@ public class H2Repository implements MembraneDatabaseInterface {
 
     @Override
     public List<Membrane> getAllMembranes() {
+
         return (List<Membrane>) membraneRepository.findAll();
+        //może tutaj dać np stream?
     }
 
     public Optional<Membrane> getOneMembrane(Long id) {
@@ -26,11 +28,13 @@ public class H2Repository implements MembraneDatabaseInterface {
 
     @Override
     public void addMembraneToDatabase(Membrane membrane) {
+
         membraneRepository.save(membrane);
     }
 
     @Override
     public void clearMembraneDatabase() {
-            membraneRepository.deleteAll();
+
+        membraneRepository.deleteAll();
     }
 }
