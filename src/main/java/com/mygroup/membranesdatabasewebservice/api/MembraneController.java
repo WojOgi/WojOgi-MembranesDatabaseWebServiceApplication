@@ -49,15 +49,21 @@ public class MembraneController {
     }
 
     @GetMapping(value = "/membranes/{id}")
-    public ResponseEntity<Optional<Membrane>> getOneMembraneByItsId(@PathVariable Long id) {
+    public ResponseEntity<Optional<MembraneResponse>> getOneMembraneByItsId(@PathVariable Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Get Membrane by Id", "Get One Membrane By Its Id");
+
+        Optional<Membrane> membraneById = databaseRepository.getOneMembrane(id);
+        Membrane membraneByIdExtracted = membraneById.get();
+        Optional<MembraneResponse> membraneResponseOptional = Optional.of(new MembraneResponse(membraneByIdExtracted.getPolymerPrecursor(),
+                membraneByIdExtracted.getPyrolysisTemperature()));
+//TODO handle exception no such element
+
         return ResponseEntity
                 .ok()
                 .headers(responseHeaders)
-                .body(databaseRepository.getOneMembrane(id));
+                .body(membraneResponseOptional);
     }
-//TODO get by id should not give the internal entry of type Membrane - need to map it as well to only give prec and temp
 
     @PostMapping(value = "/membranes")
     public ResponseEntity<String> addMembrane(@RequestBody AddMembraneRequest membraneToBeAdded) {
