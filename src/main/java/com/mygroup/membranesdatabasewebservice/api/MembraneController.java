@@ -35,10 +35,12 @@ public class MembraneController {
     }
 
     private List<MembraneResponse> toMembraneResponse(List<Membrane> allMembranes) {
+        //null pointer exception
         List<MembraneResponse> membraneResponses = new ArrayList<>();
         for (int i = 0; i < allMembranes.size(); i++) {
-            MembraneResponse membraneResponse = new MembraneResponse(allMembranes.get(i).getPolymerPrecursor(),
-                    allMembranes.get(i).getPyrolysisTemperature());
+            Membrane currentElement = allMembranes.get(i);
+            MembraneResponse membraneResponse = new MembraneResponse(currentElement.getPolymerPrecursor(),
+                    currentElement.getPyrolysisTemperature());
             //for each element in our internal list allMembranes, we create an object of type MembraneResponse
             //and using getters we extract and save values of the fields
             membraneResponses.add(membraneResponse);
