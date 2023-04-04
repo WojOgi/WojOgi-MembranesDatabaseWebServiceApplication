@@ -24,8 +24,8 @@ public class MembraneController {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Get", "Get All Membranes From Database");
 
-        List<Membrane> allMembranes = databaseRepository.getAllMembranes();
-        List<MembraneResponse> membraneResponses = toMembraneResponse(allMembranes);
+        List<MembraneInternalEntity> allMembraneInternalEntities = databaseRepository.getAllMembranes();
+        List<MembraneResponse> membraneResponses = toMembraneResponse(allMembraneInternalEntities);
         //method toMembraneResponse maps a list of our internal entries of type Membrane
         //onto a list of MembraneResponse - we decide what we want to show to the client
         return ResponseEntity
@@ -34,11 +34,11 @@ public class MembraneController {
                 .body(membraneResponses);
     }
 
-    private List<MembraneResponse> toMembraneResponse(List<Membrane> allMembranes) {
+    private List<MembraneResponse> toMembraneResponse(List<MembraneInternalEntity> allMembraneInternalEntities) {
         //null pointer exception
         List<MembraneResponse> membraneResponses = new ArrayList<>();
-        for (int i = 0; i < allMembranes.size(); i++) {
-            Membrane currentElement = allMembranes.get(i);
+        for (int i = 0; i < allMembraneInternalEntities.size(); i++) {
+            MembraneInternalEntity currentElement = allMembraneInternalEntities.get(i);
             MembraneResponse membraneResponse = new MembraneResponse(currentElement.getPolymerPrecursor(),
                     currentElement.getPyrolysisTemperature());
             //for each element in our internal list allMembranes, we create an object of type MembraneResponse
@@ -53,11 +53,14 @@ public class MembraneController {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Get Membrane by Id", "Get One Membrane By Its Id");
 
-        Optional<Membrane> membraneById = databaseRepository.getOneMembrane(id);
-        Membrane membraneByIdExtracted = membraneById.get();
-        Optional<MembraneResponse> membraneResponseOptional = Optional.of(new MembraneResponse(membraneByIdExtracted.getPolymerPrecursor(),
-                membraneByIdExtracted.getPyrolysisTemperature()));
-//TODO handle exception no such element
+      //  Optional<MembraneInternalEntity> membraneById = databaseRepository.getOneMembrane(id);
+      //  MembraneInternalEntity membraneInternalEntityByIdExtracted = membraneById.get();
+      //  Optional<MembraneResponse> membraneResponseOptional = Optional.of(
+      //          new MembraneResponse(membraneInternalEntityByIdExtracted.getPolymerPrecursor(),
+      //          membraneInternalEntityByIdExtracted.getPyrolysisTemperature()));
+
+        Optional<MembraneResponse> membraneResponseOptional = Optional.ofNullable(databaseRepository.getOneMembrane(id)
+                .map(it -> new MembraneResponse(it.getPolymerPrecursor(), it.getPyrolysisTemperature())).orElse(null));
 
         return ResponseEntity
                 .ok()
@@ -76,8 +79,8 @@ public class MembraneController {
                 .body("Added Entry: " + membraneToBeAdded);
     }
 
-    private Membrane toMembrane(AddMembraneRequest inputMembraneData) {
-        return new Membrane(inputMembraneData.getPolymerPrecursor(), inputMembraneData.getPyrolysisTemperature(),
+    private MembraneInternalEntity toMembrane(AddMembraneRequest inputMembraneData) {
+        return new MembraneInternalEntity(inputMembraneData.getPolymerPrecursor(), inputMembraneData.getPyrolysisTemperature(),
                 inputMembraneData.getSolvent(), inputMembraneData.getSolutionConcentrationWtPerc());
     }
     //metoda toMembrane zwraca typ Membrane, przyjmuje argument typu AddMemReq

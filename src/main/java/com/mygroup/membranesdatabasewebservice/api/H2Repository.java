@@ -15,21 +15,21 @@ public class H2Repository implements MembraneDatabaseInterface {
     //H2Repository sobie zautowirewał coś co potrafi zrobić save (bo extenduje Crud)
 
     @Override
-    public List<Membrane> getAllMembranes() {
+    public List<MembraneInternalEntity> getAllMembranes() {
 
-        return (List<Membrane>) membraneRepository.findAll();
+        return (List<MembraneInternalEntity>) membraneRepository.findAll();
         //może tutaj dać np stream?
     }
 
-    public Optional<Membrane> getOneMembrane(Long id) {
+    public Optional<MembraneInternalEntity> getOneMembrane(Long id) {
 
         return membraneRepository.findById(id);
     }
 
     @Override
-    public void addMembraneToDatabase(Membrane membrane) {
+    public void addMembraneToDatabase(MembraneInternalEntity membraneInternalEntity) {
 
-        membraneRepository.save(membrane);
+        membraneRepository.save(membraneInternalEntity);
     }
 
     @Override

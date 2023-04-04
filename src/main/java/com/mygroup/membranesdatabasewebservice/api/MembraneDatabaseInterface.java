@@ -5,11 +5,11 @@ import java.util.Optional;
 
 public interface MembraneDatabaseInterface {
 
-    List<Membrane> getAllMembranes();
+    List<MembraneInternalEntity> getAllMembranes();
 
-    Optional<Membrane> getOneMembrane(Long id);
+    Optional<MembraneInternalEntity> getOneMembrane(Long id);
 
-    void addMembraneToDatabase(Membrane membrane);
+    void addMembraneToDatabase(MembraneInternalEntity membraneInternalEntity);
 
     void clearMembraneDatabase();
 

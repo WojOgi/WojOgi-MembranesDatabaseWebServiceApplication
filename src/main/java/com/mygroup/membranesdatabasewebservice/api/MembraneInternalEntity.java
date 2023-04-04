@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Membrane {
+public class MembraneInternalEntity {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,22 +18,22 @@ public class Membrane {
    // private PureGasTest pureGasTest;
    // private MixedGasTest mixedGasTest;
 
-    public Membrane() {
+    public MembraneInternalEntity() {
     }
 
-    public Membrane(String polymerPrecursor, int pyrolysisTemperature) {
+    public MembraneInternalEntity(String polymerPrecursor, int pyrolysisTemperature) {
         this.polymerPrecursor = polymerPrecursor;
         this.pyrolysisTemperature = pyrolysisTemperature;
     }
 
-    public Membrane(String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc) {
+    public MembraneInternalEntity(String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc) {
         this.polymerPrecursor = polymerPrecursor;
         this.pyrolysisTemperature = pyrolysisTemperature;
         this.solvent = solvent;
         this.solutionConcentrationWtPerc = solutionConcentrationWtPerc;
     }
 
-    public Membrane(Long id, String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc, PureGasTest pureGasTest, MixedGasTest mixedGasTest) {
+    public MembraneInternalEntity(Long id, String polymerPrecursor, int pyrolysisTemperature, String solvent, double solutionConcentrationWtPerc, PureGasTest pureGasTest, MixedGasTest mixedGasTest) {
         this.id = id;
         this.polymerPrecursor = polymerPrecursor;
         this.pyrolysisTemperature = pyrolysisTemperature;

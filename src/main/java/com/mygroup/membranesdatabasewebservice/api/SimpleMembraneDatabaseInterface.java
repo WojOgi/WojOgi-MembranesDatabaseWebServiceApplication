@@ -10,15 +10,15 @@ import java.util.Optional;
 
 public class SimpleMembraneDatabaseInterface implements MembraneDatabaseInterface {
 
-    private static final List<Membrane> membraneDatabase = new ArrayList<>();
+    private static final List<MembraneInternalEntity> MEMBRANE_INTERNAL_ENTITY_DATABASE = new ArrayList<>();
 
     @Override
-    public List<Membrane> getAllMembranes() {
-        return membraneDatabase;
+    public List<MembraneInternalEntity> getAllMembranes() {
+        return MEMBRANE_INTERNAL_ENTITY_DATABASE;
     }
 
     @Override
-    public Optional<Membrane> getOneMembrane(Long id) {
+    public Optional<MembraneInternalEntity> getOneMembrane(Long id) {
         return Optional.empty();
     }
 
@@ -28,12 +28,12 @@ public class SimpleMembraneDatabaseInterface implements MembraneDatabaseInterfac
    //}
 
     @Override
-    public void addMembraneToDatabase(Membrane membrane) {
-        membraneDatabase.add(membrane);
+    public void addMembraneToDatabase(MembraneInternalEntity membraneInternalEntity) {
+        MEMBRANE_INTERNAL_ENTITY_DATABASE.add(membraneInternalEntity);
     }
 
     @Override
     public void clearMembraneDatabase() {
-        membraneDatabase.clear();
+        MEMBRANE_INTERNAL_ENTITY_DATABASE.clear();
     }
 }
