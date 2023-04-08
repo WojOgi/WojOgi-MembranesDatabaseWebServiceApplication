@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class MembraneController {
@@ -28,10 +27,7 @@ public class MembraneController {
         List<MembraneResponse> membraneResponses = toMembraneResponse(allMembraneInternalEntities);
         //method toMembraneResponse maps a list of our internal entries of type Membrane
         //onto a list of MembraneResponse - we decide what we want to show to the client
-        return ResponseEntity
-                .ok()
-                .headers(responseHeaders)
-                .body(membraneResponses);
+        return ResponseEntity.ok().headers(responseHeaders).body(membraneResponses);
     }
 
     private List<MembraneResponse> toMembraneResponse(List<MembraneInternalEntity> allMembraneInternalEntities) {
@@ -39,8 +35,7 @@ public class MembraneController {
         List<MembraneResponse> membraneResponses = new ArrayList<>();
         for (int i = 0; i < allMembraneInternalEntities.size(); i++) {
             MembraneInternalEntity currentElement = allMembraneInternalEntities.get(i);
-            MembraneResponse membraneResponse = new MembraneResponse(currentElement.getPolymerPrecursor(),
-                    currentElement.getPyrolysisTemperature());
+            MembraneResponse membraneResponse = new MembraneResponse(currentElement.getPolymerPrecursor(), currentElement.getPyrolysisTemperature());
             //for each element in our internal list allMembranes, we create an object of type MembraneResponse
             //and using getters we extract and save values of the fields
             membraneResponses.add(membraneResponse);
@@ -49,23 +44,18 @@ public class MembraneController {
     }
 
     @GetMapping(value = "/membranes/{id}")
-    public ResponseEntity<Optional<MembraneResponse>> getOneMembraneByItsId(@PathVariable Long id) {
+    public ResponseEntity<MembraneResponse> getOneMembraneByItsId(@PathVariable Long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Get Membrane by Id", "Get One Membrane By Its Id");
 
-      //  Optional<MembraneInternalEntity> membraneById = databaseRepository.getOneMembrane(id);
-      //  MembraneInternalEntity membraneInternalEntityByIdExtracted = membraneById.get();
-      //  Optional<MembraneResponse> membraneResponseOptional = Optional.of(
-      //          new MembraneResponse(membraneInternalEntityByIdExtracted.getPolymerPrecursor(),
-      //          membraneInternalEntityByIdExtracted.getPyrolysisTemperature()));
+        MembraneResponse membraneResponse = databaseRepository.getOneMembrane(id)
+                .map(it -> new MembraneResponse(it.getPolymerPrecursor(), it.getPyrolysisTemperature())).orElse(null);
 
-        Optional<MembraneResponse> membraneResponseOptional = Optional.ofNullable(databaseRepository.getOneMembrane(id)
-                .map(it -> new MembraneResponse(it.getPolymerPrecursor(), it.getPyrolysisTemperature())).orElse(null));
+        if (membraneResponse == null) {
+            return ResponseEntity.status(404).headers(responseHeaders).body(null);
+        }
 
-        return ResponseEntity
-                .ok()
-                .headers(responseHeaders)
-                .body(membraneResponseOptional);
+        return ResponseEntity.ok().headers(responseHeaders).body(membraneResponse);
     }
 
     @PostMapping(value = "/membranes")
@@ -73,10 +63,7 @@ public class MembraneController {
         databaseRepository.addMembraneToDatabase(toMembrane(membraneToBeAdded));
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Post", "Adding a New Entry to the Membrane Database");
-        return ResponseEntity
-                .ok()
-                .headers(responseHeaders)
-                .body("Added Entry: " + membraneToBeAdded);
+        return ResponseEntity.ok().headers(responseHeaders).body("Added Entry: " + membraneToBeAdded);
     }
 
     private MembraneInternalEntity toMembrane(AddMembraneRequest inputMembraneData) {
@@ -92,15 +79,26 @@ public class MembraneController {
         databaseRepository.clearMembraneDatabase();
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.set("Clear Database", "Membrane Database Cleared");
-        return ResponseEntity
-                .ok()
-                .headers(responseHeader)
-                .body("Database Cleared");
+        return ResponseEntity.ok().headers(responseHeader).body("Database Cleared");
 
     }
 
-    //zaimplementować metodę rodzaju delete by id, żeby usunąć konkretne entry w bazie
+    @DeleteMapping(value = "/membranes/{id}")
+    public ResponseEntity<String> clearMembraneDatabaseById(@PathVariable Long id) {
+        databaseRepository.clearMembraneDatabaseById(id);
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.set("Clear Database", "Membrane Database Cleared");
+        return ResponseEntity.ok().headers(responseHeader).body("Entry with id: " + id + " removed from Database.");
+    }
 
-    //być może zaimplementować też coś to liczy entries (count())
+    @GetMapping(value = "/membranes/count")
+    public ResponseEntity<String> countEntries() {
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.set("Count entries", "Entries counted");
+
+        return ResponseEntity.ok().headers(responseHeader).body("There are " + databaseRepository.countEntries()
+                + " entries in the Database.");
+    }
+
 
 }

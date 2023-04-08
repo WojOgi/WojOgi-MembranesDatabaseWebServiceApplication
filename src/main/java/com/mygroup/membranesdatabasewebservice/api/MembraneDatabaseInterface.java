@@ -13,5 +13,7 @@ public interface MembraneDatabaseInterface {
 
     void clearMembraneDatabase();
 
+    void clearMembraneDatabaseById(Long id);
 
+    long countEntries();
 }

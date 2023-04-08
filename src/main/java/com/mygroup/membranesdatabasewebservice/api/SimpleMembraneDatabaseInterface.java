@@ -36,4 +36,9 @@ public class SimpleMembraneDatabaseInterface implements MembraneDatabaseInterfac
     public void clearMembraneDatabase() {
         MEMBRANE_INTERNAL_ENTITY_DATABASE.clear();
     }
+    @Override
+    public void clearMembraneDatabaseById(Long id) {
+    }
+    @Override
+    public long countEntries(){return 1;}
 }

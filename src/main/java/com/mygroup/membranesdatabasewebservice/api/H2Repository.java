@@ -37,4 +37,12 @@ public class H2Repository implements MembraneDatabaseInterface {
 
         membraneRepository.deleteAll();
     }
+    @Override
+    public void clearMembraneDatabaseById(Long id) {
+
+        membraneRepository.deleteById(id);
+    }
+    @Override
+    public long countEntries(){return membraneRepository.count();}
+
 }
