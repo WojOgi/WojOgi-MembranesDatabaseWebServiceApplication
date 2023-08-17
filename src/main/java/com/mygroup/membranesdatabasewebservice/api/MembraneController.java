@@ -17,6 +17,9 @@ public class MembraneController {
     //on nam definiuje metody, a implementuje go SimpleMembraneDatabaseInterface
     //oraz nasz H2Repository - w tym momencie H2Repository jest oznaczony jako @Primary
     //SimpleMembraneDatabaseInterface jest zatem ignorowany
+    //@Autowired zapewnie że tylko jeden obiekt wykonuje metody - przydatne gdy chemy by aplikacja miała tylko jeden obiekt
+    //to zupełnie przeciwnie gdy chcemy tworzyc oddzielne obiekty dla requestów lub responsów
+    //defulatowo Spring tworzy singleton - pojedynczy obiekt
 
     @GetMapping(value = "/membranes")
     public ResponseEntity<List<MembraneResponse>> getAllMembranes() {

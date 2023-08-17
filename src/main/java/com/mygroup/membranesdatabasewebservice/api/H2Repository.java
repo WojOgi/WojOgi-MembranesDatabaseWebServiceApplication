@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+//Spring tutaj sprawdza pliki i szuka adnotacji Service - wtedy spring tworzy obiekt instancje tej klasy
 @Primary
 public class H2Repository implements MembraneDatabaseInterface {
     @Autowired
